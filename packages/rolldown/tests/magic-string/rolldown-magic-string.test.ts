@@ -207,3 +207,17 @@ describe('unicode handling', () => {
     assert.strictEqual(s.slice(-3, 3), 'Jefgh\uD83E');
   });
 });
+
+describe('regex replace', () => {
+  it('uses UTF-16 lastIndex for sticky regexes with emoji before the match', () => {
+    const s = new MagicString('\u{1F937}a');
+    const regex = /a/y;
+
+    // JS lastIndex is in UTF-16 code units: the emoji occupies indices 0-2.
+    regex.lastIndex = 2;
+    s.replace(regex, 'x');
+
+    assert.strictEqual(s.toString(), '\u{1F937}x');
+    assert.strictEqual(regex.lastIndex, 3);
+  });
+});

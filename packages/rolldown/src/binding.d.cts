@@ -1489,6 +1489,17 @@ export declare class BindingMagicString {
   set offset(offset: number)
   replace(from: string, to: string): this
   replaceAll(from: string, to: string): this
+  /**
+   * Returns the byte offset past the last match, or -1 if no match was found.
+   * The JS wrapper uses this to update `lastIndex` on the caller's RegExp.
+   */
+  replaceRegex(from: JsRegExp, to: string): number
+  /**
+   * Note: non-global RegExp check is handled in the JS wrapper (`binding-magic-string.ts`)
+   * which throws a proper `TypeError`. If called directly without the wrapper,
+   * a non-global regex will simply be treated as global (safe fallback).
+   */
+  replaceAllRegex(from: JsRegExp, to: string): number
   prepend(content: string): this
   append(content: string): this
   prependLeft(index: number, content: string): this
