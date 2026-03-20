@@ -517,7 +517,12 @@ impl BindingMagicString<'_> {
     for (start, end, rep) in &overwrites {
       self
         .inner
-        .update_with(*start, *end, rep.clone(), UpdateOptions { overwrite: true, keep_original: false })
+        .update_with(
+          *start,
+          *end,
+          rep.clone(),
+          UpdateOptions { overwrite: true, keep_original: false },
+        )
         .map_err(napi::Error::from_reason)?;
     }
     Ok(last_match_end)
