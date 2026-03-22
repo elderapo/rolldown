@@ -175,6 +175,7 @@ mod tests {
   /// The codegen may use a shorter representation (e.g. 15 digits) if it roundtrips to the same f64.
   /// Regression test for https://github.com/vitejs/vite/issues/21982
   #[test]
+  #[allow(clippy::unreadable_literal, clippy::excessive_precision)]
   fn test_float_17_significant_digits() {
     let inputs = [
       114.35143799257997_f64,
@@ -183,7 +184,7 @@ mod tests {
       364.09498724900986_f64,
     ];
     let json: Value = serde_json::from_str(
-      r#"[114.35143799257997, 406.31486713248995, 163.41498018498498, 364.09498724900986]"#,
+      r"[114.35143799257997, 406.31486713248995, 163.41498018498498, 364.09498724900986]",
     )
     .unwrap();
     let code = to_code(&json);
